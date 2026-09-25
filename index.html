@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المكتبة الإسلامية — الرئيسية • الأذكار • التفسير • القرآن • الابتهالات • التواصل • البث
+
+  </title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a87f1c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%233d2a21'/%3E%3Crect x='5' y='5' width='90' height='90' rx='18' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3Cg fill='url(%23g)'%3E%3Cpath d='M50 22 C50 22 44 28 44 33 C44 36 46 38 50 38 C54 38 56 36 56 33 C56 28 50 22 50 22 Z'/%3E%3Cpath d='M30 42 C30 42 27 46 27 49 C27 51 28.5 52.5 30 52.5 C31.5 52.5 33 51 33 49 C33 46 30 42 30 42 Z'/%3E%3Cpath d='M70 42 C70 42 67 46 67 49 C67 51 68.5 52.5 70 52.5 C71.5 52.5 73 51 73 49 C73 46 70 42 70 42 Z'/%3E%3Crect x='22' y='60' width='3' height='18'/%3E%3Crect x='75' y='60' width='3' height='18'/%3E%3Cpath d='M30 55 L35 50 L65 50 L70 55 L70 78 L30 78 Z'/%3E%3Crect x='36' y='54' width='4' height='24' fill='%233d2a21'/%3E%3Crect x='60' y='54' width='4' height='24' fill='%233d2a21'/%3E%3Cpath d='M42 78 L42 66 C42 62 45 60 50 60 C55 60 58 62 58 66 L58 78 Z' fill='%233d2a21'/%3E%3Crect x='18' y='78' width='64' height='4'/%3E%3C/g%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/quran-mushaf.css">
+  <link rel="stylesheet" href="CSS/animations.css">
+
+      
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script src="JS/APi/ahadith-api.js" defer></script>
+    <script src="JS/APi/khawatir-api.js" defer></script>
+    <script src="JS/APi/athkar-api.js" defer></script>
+    <script src="JS/APi/athkar-render.js" defer></script>
+    <script src="JS/APi/quran-mushaf.js" defer></script>
+    <script src="JS/APi/ibtihalat-api.js" defer></script>
+    <script src="JS/APi/tafsir-audio-api.js" defer></script>
+    <script src="JS/APi/live-tv-api.js" defer></script>
+    <script src="JS/APi/video-types-api.js" defer></script>
+
+    <script src="JS/main.js" defer></script>
+</head>
+
+<body>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="العودة للأعلى" title="العودة للأعلى">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="app-header d-flex align-center justify-between flex-wrap gap-3">
+      <div class="app-brand d-flex align-center gap-3">
+        <div class="app-logo">📖</div>
+        <div class="app-titles d-flex flex-column">
+          <div class="app-title">المكتبة الإسلامية</div>
+          <div class="app-subtitle"> القرآن • الأذكار • التفسير • التواصل</div>
+        </div>
+      </div>
+      <div class="header-actions d-flex align-center gap-2 flex-wrap">
+        <button class="btn-ghost d-inline-flex align-center gap-2" id="themeToggle" type="button">
+          <span class="emoji" id="themeIcon">🌙</span>
+          <span id="themeText">الوضع الليلي</span>
+        </button>
+      </div>
+    </header>
+<!-- NAV TABS — 6 أزرار -->
+<nav class="nav-tabs" role="tablist">
+
+  <button class="nav-tab active" data-page="home" type="button">
+    <span class="tab-emoji">🏠</span><span class="tab-label">الرئيسية</span>
+  </button>
+
+  <button class="nav-tab" data-page="athkar" type="button">
+    <span class="tab-emoji">📿</span><span class="tab-label">الأذكار</span>
+  </button>
+
+  <!-- 📖 القرآن — dropdown -->
+  <div class="nav-dropdown" data-dropdown="quran">
+    <button class="nav-tab nav-tab-trigger" type="button" data-trigger="quran">
+      <span class="tab-emoji">📖</span>
+      <span class="tab-label">القرآن</span>
+      <span class="dropdown-arrow">▾</span>
+    </button>
+    <div class="nav-dropdown-menu">
+      <button class="nav-dropdown-item" data-page="quran" type="button">
+        <span class="item-emoji">🎧</span>
+        <span class="item-text">القرآن الصوتي</span>
+      </button>
+      <button class="nav-dropdown-item" data-page="tafsir" type="button">
+        <span class="item-emoji">📚</span>
+        <span class="item-text">التفسير</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 🎧 الاستماع — dropdown -->
+  <div class="nav-dropdown" data-dropdown="listen">
+    <button class="nav-tab nav-tab-trigger" type="button" data-trigger="listen">
+      <span class="tab-emoji">🎧</span>
+      <span class="tab-label">الاستماع</span>
+      <span class="dropdown-arrow">▾</span>
+    </button>
+    <div class="nav-dropdown-menu">
+      <button class="nav-dropdown-item" data-page="ibtihalat" type="button">
+        <span class="item-emoji">🎙️</span>
+        <span class="item-text">الابتهالات</span>
+      </button>
+      <button class="nav-dropdown-item" data-page="tv" type="button">
+        <span class="item-emoji">📺</span>
+        <span class="item-text">البث المباشر</span>
+      </button>
+    </div>
+  </div>
+
+  <button class="nav-tab" data-page="videos" type="button">
+    <span class="tab-emoji">🎬</span><span class="tab-label">فيديوهات</span>
+  </button>
+
+  <button class="nav-tab" data-page="form" type="button">
+    <span class="tab-emoji">✉️</span><span class="tab-label">التواصل</span>
+  </button>
+
+</nav>
+    <!-- =========================================================
+         PAGE 1: HOME
+    ========================================================= -->
+    <section class="page active" id="page-home">
+      <div class="hero-card">
+        <div class="hero-ornament">﷽</div>
+        <h1 class="hero-title">المكتبة الإسلامية</h1>
+        <p class="hero-desc">منصة إسلامية شاملة — القرآن • الأذكار • التفسير • البث</p>
+        <div class="hero-divider"></div>
+        <div class="today-info d-flex justify-center gap-3 flex-wrap">
+          <div class="today-item d-flex align-center gap-2">
+            <span class="today-icon">📅</span>
+            <span id="hijriDate" class="today-text">جاري التحميل...</span>
+          </div>
+          <div class="today-item d-flex align-center gap-2">
+            <span class="today-icon">🕌</span>
+            <span id="prayerTime" class="today-text">جاري التحميل...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="daily-card ayah-card">
+        <div class="daily-header d-flex align-center gap-2">
+          <span class="daily-icon">✨</span>
+          <span class="daily-title flex-1">آية اليوم</span>
+          <button id="refreshAyah" type="button" class="daily-refresh" title="تحديث">🔄</button>
+        </div>
+        <div id="ayahContent" class="daily-content">
+          <div class="daily-loading d-flex flex-column align-center gap-2">
+            <div class="daily-spinner"></div>
+            <div>جاري التحميل...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="daily-card hadith-card">
+        <div class="daily-header d-flex align-center gap-2">
+          <span class="daily-icon">📖</span>
+          <span class="daily-title flex-1">حديث اليوم</span>
+          <button id="refreshHadith" type="button" class="daily-refresh" title="تحديث">🔄</button>
+        </div>
+        <div id="hadithContent" class="daily-content">
+          <div class="daily-loading d-flex flex-column align-center gap-2">
+            <div class="daily-spinner"></div>
+            <div>جاري التحميل...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-access">
+        <button class="quick-card" data-goto="athkar" type="button">
+          <div class="quick-icon">📿</div>
+          <div class="quick-body">
+            <div class="quick-title">الأذكار</div>
+            <div class="quick-desc">صباح • مساء</div>
+          </div>
+        </button>
+        <button class="quick-card" data-goto="quran" type="button">
+          <div class="quick-icon">📖</div>
+          <div class="quick-body">
+            <div class="quick-title">المصحف</div>
+            <div class="quick-desc">تفاعلي</div>
+          </div>
+        </button>
+        <button class="quick-card" data-goto="tafsir" type="button">
+          <div class="quick-icon">📚</div>
+          <div class="quick-body">
+            <div class="quick-title">التفسير</div>
+            <div class="quick-desc">ابن كثير</div>
+          </div>
+        </button>
+        <button class="quick-card" data-goto="ibtihalat" type="button">
+          <div class="quick-icon">🎙️</div>
+          <div class="quick-body">
+            <div class="quick-title">الابتهالات</div>
+            <div class="quick-desc">النقشبندي</div>
+          </div>
+        </button>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-title d-flex align-center gap-2">
+          <span class="icon">💡</span>
+          <span class="flex-1">خواطر إيمانية</span>
+          <button id="refreshReminder" type="button" class="reminder-refresh-btn" title="تحديث">🔄</button>
+        </div>
+        <div id="reminderContent" class="min-h-80">
+          <div class="reminder-loading d-flex flex-column align-center justify-center gap-2">
+            <div class="reminder-spinner"></div>
+            <div>جاري التحميل...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PAGE 2: ATHKAR
+    ========================================================= -->
+    <section class="page" id="page-athkar">
+      <div class="athkar-header">
+        <div class="athkar-header-ornament">﷽</div>
+        <h2 class="athkar-header-title">أذكار المسلم</h2>
+        <p class="athkar-header-sub">أذكار الصباح والمساء — من الكتاب والسنة</p>
+      </div>
+
+      <div class="athkar-switch" role="tablist">
+        <button class="athkar-switch-btn active" data-athkar="morning" type="button">
+          <span>🌅</span><span>أذكار الصباح</span>
+        </button>
+        <button class="athkar-switch-btn" data-athkar="evening" type="button">
+          <span>🌙</span><span>أذكار المساء</span>
+        </button>
+      </div>
+
+      <div class="athkar-list" id="athkarMorning"></div>
+      <div class="athkar-list hidden" id="athkarEvening"></div>
+    </section>
+
+    <!-- =========================================================
+         PAGE 3: TAFSIR
+    ========================================================= -->
+    <section class="page" id="page-tafsir">
+
+      <div id="tafsirListView">
+        <div class="tafsir-hero">
+          <div class="tafsir-hero-inner d-flex align-center gap-3 flex-wrap">
+            <div class="tafsir-hero-icon">📚</div>
+            <div class="tafsir-hero-info flex-1 min-w-0">
+              <div class="tafsir-hero-title">تفسير القرآن العظيم</div>
+              <div class="tafsir-hero-sub">اختر الكتاب ثم اختر الوضع ثم السورة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tafsir-book-picker" id="tafsirBookPicker">
+          <div class="tafsir-book-label">📖 اختر التفسير:</div>
+          <div class="tafsir-book-options">
+            <button class="tafsir-book-btn active" data-book="ibn-kathir" type="button">
+              <div class="tb-cover">📕</div>
+              <span class="tb-name">ابن كثير</span>
+            </button>
+            <button class="tafsir-book-btn" data-book="tabari" type="button">
+              <div class="tb-cover">📗</div>
+              <span class="tb-name">الطبري</span>
+            </button>
+            <button class="tafsir-book-btn" data-book="qurtubi" type="button">
+              <div class="tb-cover">📘</div>
+              <span class="tb-name">القرطبي</span>
+            </button>
+            <button class="tafsir-book-btn" data-book="saadi" type="button">
+              <div class="tb-cover">📙</div>
+              <span class="tb-name">السعدي</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="tafsir-mode-picker" id="tafsirModePicker">
+          <div class="tafsir-book-label">🎧 اختر الوضع:</div>
+          <div class="tafsir-mode-options">
+            <button class="tafsir-mode-btn active" data-mode="read" type="button">
+              <span>📖</span><span>قراءة فقط</span>
+            </button>
+            <button class="tafsir-mode-btn" data-mode="listen" type="button">
+              <span>🎧</span><span>استماع وقراءة</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="status" id="tafsirStatus">اختر سورة لعرض التفسير</div>
+        <div class="tafsir-list" id="tafsirGrid"></div>
+      </div>
+
+      <div id="bookWrap" class="book-wrap hidden">
+        <button class="back-btn mb-3" id="bookBackBtn" type="button">→ رجوع للقائمة</button>
+        <div class="book-cover">
+          <button class="book-cover-close" id="bookClose">✕</button>
+          <div class="book-cover-ornament">﷽</div>
+          <div class="book-cover-title" id="bookCoverTitle">—</div>
+          <div class="book-cover-author" id="bookCoverAuthor">—</div>
+          <div class="book-cover-book" id="bookCoverBook">—</div>
+          <div class="book-cover-divider"></div>
+        </div>
+        <div class="book-page">
+          <div class="book-page-header">
+            <div class="book-page-chapter" id="bookPageChapter">—</div>
+            <div class="book-page-subtitle" id="bookPageSubtitle">—</div>
+          </div>
+          <div class="book-text" id="bookText"></div>
+          <div class="book-nav d-flex align-center justify-between gap-2">
+            <button class="book-nav-btn" id="bookPrev" type="button">→ السابق</button>
+            <span class="book-nav-page" id="bookPageNum">صفحة 1</span>
+            <button class="book-nav-btn" id="bookNext" type="button">التالي ←</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================
+     PAGE 4: AUDIO QURAN
+========================================================= -->
+<section class="page" id="page-quran">
+
+  <!-- ✅ اختيار الوضع (بره خالص قبل القارئ) -->
+  <div class="tafsir-mode-picker" id="quranModePicker" style="margin-bottom:1.5rem;">
+    <div class="tafsir-book-label">🎧 اختر الوضع قبل ما تختار القارئ:</div>
+    <div class="tafsir-mode-options" style="grid-template-columns:repeat(3,1fr);">
+      <button class="tafsir-mode-btn active" data-qmode="read" type="button">
+        <span>📖</span><span>قراءة فقط</span>
+      </button>
+      <button class="tafsir-mode-btn" data-qmode="listen" type="button">
+        <span>🎧</span><span>استماع فقط</span>
+      </button>
+      <button class="tafsir-mode-btn" data-qmode="both" type="button">
+        <span>📖🎧</span><span>قراءة واستماع</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="recitersList">
+    <div class="search-wrap relative">
+      <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن قارئ...">
+      <span class="search-icon">🔍</span>
+    </div>
+    <div class="status" id="statusBar">جاري تحميل بيانات القراء...</div>
+    <div class="grid" id="recitersGrid"></div>
+  </div>
+
+  <div id="reciterDetails" class="details hidden">
+    <button class="back-btn" id="backBtn" type="button">→ رجوع للقائمة</button>
+    <div class="details-hero d-flex align-center gap-3 flex-wrap">
+      <div class="details-avatar" id="detailsAvatar">?</div>
+      <div class="details-info flex-1 min-w-0">
+        <div class="details-name" id="detailsName">—</div>
+        <div class="details-tags d-flex gap-2 flex-wrap" id="detailsMeta"></div>
+      </div>
+    </div>
+
+    <div id="moshafListView">
+      <div class="status" id="moshafStatus">اختر المصحف لعرض السور</div>
+      <div id="moshafContainer"></div>
+    </div>
+
+    <div id="surahListView" class="hidden">
+      <button class="back-btn mb-3" id="surahBackBtn" type="button">→ رجوع للمصاحف</button>
+      <div class="moshaf-info-card" id="moshafInfoCard"></div>
+
+      <div id="currentModeBadge" style="text-align:center;padding:0.6rem;background:#fdf3d0;border-radius:10px;margin-bottom:1rem;font-family:Tajawal;font-weight:700;color:#a87f1c;">
+        📖 الوضع الحالي: قراءة فقط
+      </div>
+
+      <div id="surahContainer"></div>
+    </div>
+
+    <div id="quranTextView" class="quran-reading-view hidden mt-4">
+      <div class="quran-reading-header d-flex align-center justify-between gap-2 flex-wrap">
+        <h2 class="quran-surah-title" id="quranSurahTitle">—</h2>
+        <button class="back-btn" id="quranBackToSurahListBtn" type="button">→ رجوع للسور</button>
+      </div>
+      <div id="quranTextContainer" class="quran-text-display"></div>
+    </div>
+
+    <div id="mushafContainer" class="hidden mt-4"></div>
+
+  </div>
+</section>
+<!-- =========================================================
+     PAGE 5: IBTIHALAT
+========================================================= -->
+<section class="page" id="page-ibtihalat">
+
+  <!-- Hero -->
+  <div class="ibtihalat-hero">
+    <div class="ibtihalat-hero-ornament">﷽</div>
+    <h2 class="ibtihalat-hero-title">الابتهالات والأناشيد الدينية</h2>
+    <p class="ibtihalat-hero-sub">الشيخ سيد النقشبندي رحمه الله</p>
+  </div>
+
+  <!-- قائمة الشيوخ -->
+  <div id="ibtihalatListView">
+
+    <!-- ✅ بحث في الشيوخ -->
+    <div class="search-wrap relative">
+      <input type="text" class="search-input" id="ibtihalatSearchInput" placeholder="ابحث عن شيخ...">
+      <span class="search-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+    </div>
+
+    <div class="status" id="ibtihalatStatus">جاري تحميل البيانات من الأرشيف...</div>
+    <div class="ibtihalat-sheikhs-grid" id="ibtihalatGrid"></div>
+  </div>
+
+  <!-- ابتهالات الشيخ -->
+  <div id="ibtihalatTracksView" class="hidden">
+    <button class="back-btn mb-3" id="ibtihalatBackBtn" type="button">→ رجوع للشيوخ</button>
+    <div class="ibtihalat-sheikh-info" id="ibtihalatSheikhInfo"></div>
+
+    <!-- ✅ بحث في الابتهالات -->
+    <div class="search-wrap relative" id="ibtihalatTracksSearchWrap">
+      <input type="text" class="search-input" id="ibtihalatTrackSearchInput" placeholder="ابحث عن ابتهال...">
+      <span class="search-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+    </div>
+
+    <button id="ibtihalatPlayAllBtn" class="continuous-listen-btn" type="button">
+      <span class="cl-icon">🎧</span>
+      <span class="cl-text">تشغيل الكل — ابتهالات ورا بعض</span>
+    </button>
+
+    <div class="ibtihalat-tracks-list" id="ibtihalatTracksList"></div>
+  </div>
+
+</section>
+
+<!-- =========================================================
+     PAGE 6: CONTACT FORM
+========================================================= -->
+<section class="page" id="page-form">
+
+  <!-- Hero -->
+  <div class="contact-hero">
+    <div class="contact-hero-content">
+      <div class="contact-hero-icon">✉️</div>
+      <h2 class="contact-hero-title">تواصل معنا</h2>
+      <p class="contact-hero-desc">عندك سؤال، اقتراح، أو ملاحظة؟ يسعدنا نسمع منك!</p>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="contact-grid">
+
+    <!-- عمود المعلومات -->
+    <aside class="contact-info">
+      <h3 class="contact-info-title">معلومات التواصل</h3>
+      <p class="contact-info-desc">تقدر تتواصل معانا من خلال الطرق دي.</p>
+
+      <div class="contact-info-list">
+
+        <!-- 📞 اتصل بنا -->
+        <a href="tel:01144629507" class="contact-info-item contact-phone">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div class="contact-info-body">
+            <div class="contact-info-label">اتصل بنا</div>
+            <div class="contact-info-value">01144629507</div>
+          </div>
+          <div class="contact-info-arrow">
+            <i class="fa-solid fa-chevron-left"></i>
+          </div>
+        </a>
+
+        <!-- 💬 واتساب -->
+        <a href="https://wa.me/201144629507?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%88%D8%B1%D8%AD%D9%85%D8%A9%20%D8%A7%D9%84%D9%84%D9%87"
+           target="_blank" rel="noopener"
+           class="contact-info-item contact-whatsapp">
+          <div class="contact-info-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <div class="contact-info-body">
+            <div class="contact-info-label">واتساب</div>
+            <div class="contact-info-value">تواصل مباشر</div>
+          </div>
+          <div class="contact-info-arrow">
+            <i class="fa-solid fa-chevron-left"></i>
+          </div>
+        </a>
+
+        <!-- 📧 راسلنا -->
+<div class="contact-form-wrapper">
+  <form
+    id="contactForm"
+    class="contact-form"
+    action="https://formsubmit.co/omarahmedniledental@gmail.com"
+    method="POST"
+  >
+
+
+
+
+        <!-- 📘 فيسبوك -->
+        <a href="https://www.facebook.com/share/1CJuB6m5SR/"
+           target="_blank" rel="noopener"
+           class="contact-info-item contact-facebook">
+          <div class="contact-info-icon">
+            <i class="fa-brands fa-facebook-f"></i>
+          </div>
+          <div class="contact-info-body">
+            <div class="contact-info-label">فيسبوك</div>
+            <div class="contact-info-value">صفحتنا الرسمية</div>
+          </div>
+          <div class="contact-info-arrow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </div>
+        </a>
+
+        <!-- 📸 انستجرام -->
+        <a href="https://instagram.com/omar_ahabib"
+           target="_blank" rel="noopener"
+           class="contact-info-item contact-instagram">
+          <div class="contact-info-icon">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+          <div class="contact-info-body">
+            <div class="contact-info-label">انستجرام</div>
+            <div class="contact-info-value">@omar_ahabib</div>
+          </div>
+          <div class="contact-info-arrow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </div>
+        </a>
+
+      </div>
+    </aside>
+
+    <!-- عمود الفورم -->
+<div class="contact-form-wrapper">
+  <form
+    id="contactForm"
+    class="contact-form"
+    action="https://formsubmit.co/omarahmedniledental@gmail.com"
+    method="POST"
+    novalidate
+  >
+
+    <!-- إعدادات FormSubmit -->
+    <input type="hidden" name="_subject" value="رسالة جديدة من المكتبة الإسلامية">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://your-site.com/">
+
+    <div class="contact-form-row">
+      <div class="contact-form-group">
+        <label class="contact-form-label" for="senderName">الاسم <span class="required">*</span></label>
+        <input type="text" class="contact-form-input" id="senderName" name="name" placeholder="اكتب اسمك" required>
+      </div>
+      <div class="contact-form-group">
+        <label class="contact-form-label" for="senderEmail">البريد الإلكتروني <span class="required">*</span></label>
+        <input type="email" class="contact-form-input" id="senderEmail" name="email" placeholder="example@domain.com" required>
+      </div>
+    </div>
+
+    <div class="contact-form-group">
+      <label class="contact-form-label" for="messageType">نوع الرسالة</label>
+      <select class="contact-form-select" id="messageType" name="type">
+        <option value="استفسار عام">استفسار عام</option>
+        <option value="اقتراح أو فكرة">اقتراح أو فكرة</option>
+        <option value="الإبلاغ عن مشكلة">الإبلاغ عن مشكلة</option>
+        <option value="شكر وتقدير">شكر وتقدير</option>
+        <option value="أخرى">أخرى</option>
+      </select>
+    </div>
+
+    <div class="contact-form-group">
+      <label class="contact-form-label" for="messageContent">نص الرسالة <span class="required">*</span></label>
+      <textarea class="contact-form-textarea" id="messageContent" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+    </div>
+
+    <button type="submit" class="contact-form-btn" id="contactSubmitBtn">
+      <span class="contact-form-btn-icon">📤</span>
+      <span class="contact-form-btn-text">إرسال الرسالة</span>
+    </button>
+
+    <div class="contact-success" id="successMessage">
+      <div class="contact-success-icon">✅</div>
+      <div class="contact-success-body">
+        <div class="contact-success-title">تم إرسال رسالتك بنجاح!</div>
+        <div class="contact-success-desc">هنرد عليك في أقرب وقت إن شاء الله.</div>
+      </div>
+    </div>
+
+    <div class="contact-error" id="errorMessage">
+      <div class="contact-error-icon">⚠️</div>
+      <div class="contact-error-body">
+        <div class="contact-error-title">يرجى إكمال البيانات</div>
+        <div class="contact-error-desc">تأكد من كتابة الاسم والبريد الإلكتروني ونص الرسالة.</div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+  </div>
+</section>
+<!-- =========================================================
+     PAGE 8: LIVE TV (API)
+========================================================= -->
+    <section class="page" id="page-tv">
+      <div class="tv-shell">
+        <div class="tv-bar d-flex align-center justify-between gap-2">
+          <div class="tv-bar-left d-flex align-center gap-2 min-w-0">
+            <div class="tv-bar-icon">▣</div>
+            <div class="min-w-0">
+              <div class="tv-bar-title" id="NQR-title">البث المباشر لقناة القرآن الكريم</div>
+              <div class="tv-bar-sub">بث حي • جودة عالية</div>
+            </div>
+          </div>
+        </div>
+        <div class="tv-chips d-flex gap-2">
+          <button type="button" class="tv-chip active d-inline-flex align-center justify-center gap-2"
+            data-url="https://win.holol.com/live/quran/playlist.m3u8" data-name="قناة القرآن الكريم">
+            <span class="dot"></span><span>القرآن الكريم</span>
+          </button>
+          <button type="button" class="tv-chip d-inline-flex align-center justify-center gap-2"
+            data-url="https://win.holol.com/live/sunnah/playlist.m3u8" data-name="قناة السنة النبوية">
+            <span class="dot"></span><span>السنة النبوية</span>
+          </button>
+        </div>
+        <div class="tv-stage">
+          <video id="NQR-video" playsinline webkit-playsinline preload="none" controls></video>
+          <div id="NQR-cover">
+            <div class="cover-inner">
+              <div class="cover-orb">▶</div>
+              <div class="cover-title" id="NQR-cover-title">قناة القرآن الكريم</div>
+              <div class="cover-sub">البث المباشر</div>
+            </div>
+          </div>
+          <div class="tv-live">مباشر</div>
+          <button type="button" id="NQR-big-play">▶</button>
+          <div class="tv-loading d-flex flex-column align-center justify-center gap-3" id="NQR-loading">
+            <div class="tv-spinner"></div>
+            <div>جاري تحميل البث...</div>
+          </div>
+        </div>
+        <div class="tv-now d-flex align-center justify-between gap-3">
+          <div class="tv-now-left d-flex align-center gap-3 min-w-0">
+            <div class="tv-now-icon">◉</div>
+            <div class="min-w-0">
+              <div class="tv-now-label">البث الآن</div>
+              <div class="tv-now-name" id="NQR-current-name">قناة القرآن الكريم</div>
+            </div>
+          </div>
+          <div class="tv-status-pill" id="NQR-status">جاهز للتشغيل</div>
+        </div>
+      </div>
+    </section>
+<!-- =========================================================
+     PAGE 9: VIDEOS (API) — WITH INLINE PLAYER
+========================================================= -->
+<section class="page" id="page-videos">
+  <div class="videos-shell">
+
+    <!-- Header -->
+    <div class="videos-hero">
+      <div class="videos-hero-icon">🎬</div>
+      <div class="videos-hero-info">
+        <div class="videos-hero-title">الفيديوهات الإسلامية</div>
+        <div class="videos-hero-sub">مصدر البيانات: mp3quran.net</div>
+      </div>
+    </div>
+
+    <!-- ====== INLINE VIDEO PLAYER (hidden by default) ====== -->
+    <div id="videoPlayerWrap" class="video-player-wrap hidden">
+      <div class="video-player-head">
+        <button class="back-btn" id="videoPlayerBackBtn" type="button">→ إغلاق المشغل</button>
+        <div class="video-player-title" id="videoPlayerTitle">—</div>
+      </div>
+
+      <div class="video-stage">
+        <video id="inlineVideo" playsinline webkit-playsinline preload="metadata" controls></video>
+      </div>
+
+      <div class="video-controls">
+        <button class="vc-btn" id="vcPlayBtn"  type="button">⏸ إيقاف</button>
+        <button class="vc-btn" id="vcMuteBtn"  type="button">🔊 كتم الصوت</button>
+
+      </div>
+    </div>
+
+    <!-- List View: أنواع الفيديوهات -->
+    <div id="videoTypesView">
+      <div class="search-wrap relative">
+        <input type="text" class="search-input" id="videoTypesSearch" placeholder="ابحث عن نوع...">
+        <span class="search-icon">🔍</span>
+      </div>
+
+      <div class="status" id="videoTypesStatus">جاري تحميل الأنواع...</div>
+      <div class="video-types-grid" id="videoTypesGrid"></div>
+    </div>
+
+    <!-- Videos View -->
+    <div id="videoVideosView" class="hidden">
+      <button class="back-btn mb-3" id="videoVideosBackBtn" type="button">→ رجوع للأنواع</button>
+      <h2 class="video-videos-title" id="videoVideosTitle">🎬 —</h2>
+
+      <div class="search-wrap relative">
+        <input type="text" class="search-input" id="videoVideosSearch" placeholder="ابحث في الفيديوهات...">
+        <span class="search-icon">🔍</span>
+      </div>
+
+      <div class="status" id="videoVideosStatus">جاري التحميل...</div>
+      <div class="video-videos-grid" id="videoVideosGrid"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="app-footer">
+  <p>صُنع بـ <span class="heart">❤️</span> لخدمة القرآن الكريم والسنة النبوية</p>
+  <p class="footer-dev">المهندس عمر أحمد حبيب — <a href="tel:01144629507" class="footer-phone"><i class="fa-solid fa-phone"></i> 01144629507</a></p>
+</footer>
+
+<!-- =========================================================
+     AUDIO PLAYER — Enhanced
+========================================================= -->
+<div class="player" id="player">
+
+  <!-- Art + Info -->
+  <div class="player-head d-flex align-center gap-3">
+    <div class="player-art" id="playerArt">♪</div>
+    <div class="player-info flex-1 min-w-0">
+      <div class="player-title" id="playerTitle">—</div>
+      <div class="player-sub" id="playerSub">—</div>
+    </div>
+    <button class="pc-btn close" id="closePlayerBtn" title="إغلاق">✕</button>
+  </div>
+
+  <!-- Timeline -->
+  <div class="player-timeline">
+    <span class="pt-time" id="playerCurrent">00:00</span>
+    <input type="range" id="playerSeek" class="pt-range" min="0" max="100" step="0.1" value="0">
+    <span class="pt-time" id="playerDuration">00:00</span>
+  </div>
+
+  <!-- Controls -->
+  <div class="player-controls">
+
+    <!-- Left group -->
+    <div class="pc-group">
+      <button class="pc-btn" id="prevBtn" title="السابق">⏮</button>
+      <button class="pc-btn" id="back10Btn" title="رجوع 10 ثواني">⏩</button>
+      <button class="pc-btn primary" id="playPauseBtn" title="تشغيل / إيقاف">▶</button>
+      <button class="pc-btn" id="fwd10Btn" title="تقديم 10 ثواني">⏪</button>
+      <button class="pc-btn" id="nextBtn" title="التالي">⏭</button>
+    </div>
+
+    <!-- Right group -->
+    <div class="pc-group">
+
+
+
+      <!-- Volume -->
+      <div class="pc-volume">
+        <button class="pc-btn" id="muteBtn" title="كتم">🔊</button>
+        <input type="range" id="volumeSlider" class="pc-range" min="0" max="1" step="0.05" value="1">
+      </div>
+
+      <!-- Speed -->
+      <select class="pc-speed" id="speedSelect" title="السرعة">
+        <option value="0.5">0.5×</option>
+        <option value="0.75">0.75×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.25">1.25×</option>
+        <option value="1.5">1.5×</option>
+        <option value="2">2×</option>
+      </select>
+
+    </div>
+
+  </div>
+
+  <audio id="audioElement" preload="metadata"></audio>
+</div>
+
+<script>
+(function() {
+  function fixPlayerPosition() {
+    if (window.innerWidth > 768) return;
+    const nav = document.querySelector('.nav-tabs');
+    const player = document.querySelector('.player');
+    if (!nav || !player) return;
+    const navHeight = nav.getBoundingClientRect().height;
+    player.style.setProperty('bottom', (navHeight + 4) + 'px', 'important');
+  }
+  window.addEventListener('load', fixPlayerPosition);
+  window.addEventListener('resize', fixPlayerPosition);
+  fixPlayerPosition();
+})();
+</script>
+</body>
+</html>

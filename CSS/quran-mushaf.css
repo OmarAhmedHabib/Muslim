@@ -1,0 +1,417 @@
+/* =========================================================
+   QURAN MUSHAF — المصحف التفاعلي
+========================================================= */
+
+/* ===== الحاوية الرئيسية ===== */
+.mushaf-container {
+  background: linear-gradient(135deg, #fdfaf0 0%, #f5ecd0 100%);
+  border: 3px solid var(--gold);
+  border-radius: var(--r-lg);
+  padding: 0;
+  box-shadow:
+    0 20px 60px rgba(92, 64, 51, .25),
+    inset 0 0 0 1px rgba(197, 155, 39, .3);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .mushaf-container {
+  background: linear-gradient(135deg, #1e1a14 0%, #2a2418 100%);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.6),
+    inset 0 0 0 1px rgba(212, 175, 55, .3);
+}
+
+/* ===== الزخرفة العلوية ===== */
+.mushaf-top-ornament {
+  background: linear-gradient(135deg, #8a6f1f, #c59b27, #8a6f1f);
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  font-family: var(--font-quran);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  border-bottom: 2px solid var(--gold-dark);
+}
+
+.mushaf-top-ornament .surah-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.mushaf-top-ornament .surah-info {
+  font-size: .85rem;
+  opacity: .9;
+  font-family: var(--font-body);
+}
+
+/* ===== منطقة الصفحة ===== */
+.mushaf-page-wrapper {
+  position: relative;
+  padding: 30px 40px;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mushaf-page {
+  font-family: 'Amiri Quran', 'Amiri', serif;
+  font-size: 1.6rem;
+  line-height: 2.8;
+  text-align: justify;
+  text-align-last: center;
+  color: #2a2118;
+  direction: rtl;
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  transition: opacity 0.4s ease;
+}
+
+[data-theme="dark"] .mushaf-page {
+  color: #f0e6d2;
+}
+
+.mushaf-page.fade-out {
+  opacity: 0;
+}
+
+/* ===== إطار الصفحة الذهبي ===== */
+.mushaf-page-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: .5;
+}
+
+.mushaf-page-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: .3;
+}
+
+/* ===== نص الآيات ===== */
+.mushaf-ayah {
+  display: inline;
+  transition: background-color 0.3s ease;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mushaf-ayah:hover {
+  background: rgba(197, 155, 39, .15);
+}
+
+.mushaf-ayah.highlight {
+  background: linear-gradient(135deg, rgba(197, 155, 39, .3), rgba(212, 175, 55, .4));
+  box-shadow: 0 2px 8px rgba(197, 155, 39, .3);
+}
+
+/* رقم الآية داخل زخرفة */
+.mushaf-ayah-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin: 0 6px;
+  font-family: 'Amiri', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  background: radial-gradient(circle, rgba(197, 155, 39, .15), transparent 70%);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  vertical-align: middle;
+  position: relative;
+}
+
+[data-theme="dark"] .mushaf-ayah-number {
+  color: var(--gold);
+  background: radial-gradient(circle, rgba(212, 175, 55, .2), transparent 70%);
+}
+
+.mushaf-ayah-number::before {
+  content: "﴿";
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: var(--gold);
+  opacity: .6;
+}
+
+.mushaf-ayah-number::after {
+  content: "﴾";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: var(--gold);
+  opacity: .6;
+}
+
+/* ===== شريط التحكم السفلي ===== */
+.mushaf-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, rgba(197, 155, 39, .08), rgba(197, 155, 39, .15));
+  border-top: 2px solid var(--gold);
+  flex-wrap: wrap;
+}
+
+[data-theme="dark"] .mushaf-controls {
+  background: linear-gradient(135deg, rgba(212, 175, 55, .08), rgba(212, 175, 55, .12));
+}
+
+.mushaf-nav-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #fff;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: grid;
+  place-items: center;
+  transition: all var(--dur) var(--tr);
+  box-shadow: 0 6px 16px rgba(197, 155, 39, .35);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mushaf-nav-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 10px 24px rgba(197, 155, 39, .5);
+}
+
+.mushaf-nav-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.mushaf-nav-btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  background: var(--text-3);
+}
+
+/* ===== عرض رقم الصفحة ===== */
+.mushaf-page-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--gold-dark);
+  font-size: .95rem;
+}
+
+[data-theme="dark"] .mushaf-page-info {
+  color: var(--gold);
+}
+
+.mushaf-page-input {
+  width: 70px;
+  padding: 8px 10px;
+  border: 2px solid var(--gold);
+  border-radius: var(--r-sm);
+  background: var(--bg-1);
+  color: var(--text-1);
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1rem;
+  outline: none;
+  transition: all var(--dur) var(--tr);
+}
+
+.mushaf-page-input:focus {
+  box-shadow: 0 0 0 4px var(--gold-ring);
+}
+
+.mushaf-page-total {
+  font-size: .82rem;
+  color: var(--text-3);
+  font-weight: 600;
+}
+
+/* ===== شريط التقدم ===== */
+.mushaf-progress {
+  height: 6px;
+  background: rgba(197, 155, 39, .15);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0 24px 16px;
+}
+
+.mushaf-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(.22, 1, .36, 1);
+  box-shadow: 0 0 8px rgba(197, 155, 39, .5);
+}
+
+/* ===== حالة التحميل ===== */
+.mushaf-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 500px;
+  color: var(--text-3);
+  font-size: 1rem;
+}
+
+.mushaf-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(197, 155, 39, .2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+/* ===== رسالة خطأ ===== */
+.mushaf-error {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--danger);
+  font-size: .95rem;
+}
+
+.mushaf-error-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* ===== أزرار الانتقال السريع ===== */
+.mushaf-jump {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mushaf-jump-btn {
+  padding: 8px 14px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold-dark);
+  border-radius: var(--r-sm);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--dur) var(--tr);
+}
+
+[data-theme="dark"] .mushaf-jump-btn {
+  color: var(--gold);
+}
+
+.mushaf-jump-btn:hover {
+  background: var(--gold);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 760px) {
+  .mushaf-page-wrapper {
+    padding: 20px 20px;
+    min-height: 400px;
+  }
+
+  .mushaf-page {
+    font-size: 1.25rem;
+    line-height: 2.4;
+  }
+
+  .mushaf-page-wrapper::before {
+    inset: 8px;
+  }
+
+  .mushaf-page-wrapper::after {
+    inset: 14px;
+  }
+
+  .mushaf-ayah-number {
+    width: 36px;
+    height: 36px;
+    font-size: .85rem;
+  }
+
+  .mushaf-controls {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .mushaf-nav-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .mushaf-page-input {
+    width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mushaf-page {
+    font-size: 1.1rem;
+    line-height: 2.2;
+  }
+
+  .mushaf-top-ornament .surah-name {
+    font-size: 1.1rem;
+  }
+
+  .mushaf-page-info {
+    font-size: .85rem;
+  }
+}
+
+/* ===== Swipe Hint ===== */
+.mushaf-swipe-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(197, 155, 39, .95);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(197, 155, 39, .4);
+  animation: swipeHintFade 3s ease-in-out;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes swipeHintFade {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}

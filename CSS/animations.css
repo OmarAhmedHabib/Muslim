@@ -1,0 +1,662 @@
+/* =========================================================
+   ANIMATIONS — المكتبة الإسلامية
+   حركات ناعمة ومريحة للعين — مناسبة للصفحات الإسلامية
+   ========================================================= */
+
+/* ---------- متغيرات الحركة ---------- */
+:root {
+  --anim-slow: 0.85s;
+  --anim-med: 0.55s;
+  --anim-fast: 0.3s;
+  --anim-ease: cubic-bezier(.22, 1, .36, 1); /* نفس --tr بتاعك */
+}
+
+/* احترام تفضيل المستخدم بتقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* =========================================================
+   1. KEYFRAMES الأساسية
+========================================================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(22px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-22px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.035); }
+}
+
+@keyframes softGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(197,155,39,0); }
+  50%      { box-shadow: 0 0 18px rgba(197,155,39,.28); }
+}
+
+@keyframes shimmerGold {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: .55; transform: scale(1.15); }
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15%, 30% { transform: scale(1.18); }
+  45%      { transform: scale(1); }
+}
+
+/* =========================================================
+   2. الصفحات — دخول ناعم
+========================================================= */
+.page.active {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) both;
+}
+
+/* =========================================================
+   3. الهيدر واللوجو
+========================================================= */
+.app-header {
+  animation: fadeInDown var(--anim-slow) var(--anim-ease) both;
+}
+
+.app-logo {
+  animation: gentlePulse 4.5s ease-in-out infinite;
+  transition: transform var(--dur) var(--tr);
+}
+.app-logo:hover {
+  transform: rotate(-5deg) scale(1.08);
+}
+
+.app-title {
+  /* لمعة ذهبية هادية على العنوان */
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0%,
+    var(--gold) 40%,
+    #ffe9a8 50%,
+    var(--gold) 60%,
+    var(--gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGold 7s linear infinite;
+}
+
+/* =========================================================
+   4. التابس (Nav Tabs)
+========================================================= */
+.nav-tab {
+  position: relative;
+  overflow: hidden;
+}
+
+/* خط ذهبي يطلع من تحت التاب */
+.nav-tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: translateX(50%);
+  transition: width var(--dur) var(--tr);
+  pointer-events: none;
+}
+.nav-tab:hover::after,
+.nav-tab.active::after { width: 85%; }
+
+/* ظهور التابس بتتابع */
+.nav-tab {
+  animation: fadeInDown var(--anim-med) var(--anim-ease) both;
+}
+.nav-tab:nth-child(1) { animation-delay: .04s; }
+.nav-tab:nth-child(2) { animation-delay: .08s; }
+.nav-tab:nth-child(3) { animation-delay: .12s; }
+.nav-tab:nth-child(4) { animation-delay: .16s; }
+.nav-tab:nth-child(5) { animation-delay: .20s; }
+.nav-tab:nth-child(6) { animation-delay: .24s; }
+.nav-tab:nth-child(7) { animation-delay: .28s; }
+
+/* =========================================================
+   5. الصفحة الرئيسية — Hero
+========================================================= */
+.hero-card {
+  animation: scaleIn var(--anim-slow) var(--anim-ease) both;
+}
+
+.hero-ornament {
+  animation: fadeIn var(--anim-slow) var(--anim-ease) .1s both;
+}
+
+.hero-title {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) .15s both;
+}
+
+.hero-desc {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) .28s both;
+}
+
+.hero-divider {
+  animation: expandWidth var(--anim-slow) var(--anim-ease) .38s both;
+}
+@keyframes expandWidth {
+  from { width: 0; opacity: 0; }
+  to   { width: 100px; opacity: 1; }
+}
+
+.today-info {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) .5s both;
+}
+
+/* =========================================================
+   6. كروت اليوم (آية / حديث)
+========================================================= */
+.daily-card {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) both;
+}
+.daily-card.ayah-card   { animation-delay: .08s; }
+.daily-card.hadith-card { animation-delay: .18s; }
+
+/* دوران زر التحديث بدل الـ 180deg اللي عندك */
+.daily-refresh {
+  transition: all var(--dur) var(--tr), transform .5s var(--tr);
+}
+.daily-refresh:hover {
+  transform: rotate(180deg) scale(1.08);
+}
+.daily-refresh:active {
+  transform: rotate(360deg) scale(.95);
+}
+
+/* =========================================================
+   7. كروت الوصول السريع
+========================================================= */
+.quick-card {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) both;
+}
+.quick-card:nth-child(1) { animation-delay: .05s; }
+.quick-card:nth-child(2) { animation-delay: .10s; }
+.quick-card:nth-child(3) { animation-delay: .15s; }
+.quick-card:nth-child(4) { animation-delay: .20s; }
+
+/* =========================================================
+   8. كارت الخواطر
+========================================================= */
+.info-card {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) .3s both;
+}
+
+.reminder-refresh-btn {
+  transition: all var(--dur) var(--tr), transform .5s var(--tr);
+}
+.reminder-refresh-btn:hover {
+  transform: rotate(180deg) scale(1.08);
+}
+
+/* عناصر الخواطر تظهر بتتابع */
+.khatira-item {
+  animation: fadeInRight var(--anim-med) var(--anim-ease) both;
+}
+.khatira-item:nth-child(1) { animation-delay: .05s; }
+.khatira-item:nth-child(2) { animation-delay: .10s; }
+.khatira-item:nth-child(3) { animation-delay: .15s; }
+.khatira-item:nth-child(4) { animation-delay: .20s; }
+.khatira-item:nth-child(5) { animation-delay: .25s; }
+.khatira-item:nth-child(6) { animation-delay: .30s; }
+.khatira-item:nth-child(7) { animation-delay: .35s; }
+
+/* =========================================================
+   9. صفحة الأذكار
+========================================================= */
+.athkar-header {
+  animation: fadeInDown var(--anim-slow) var(--anim-ease) both;
+}
+.athkar-header-ornament {
+  animation: fadeIn var(--anim-slow) var(--anim-ease) .1s both;
+}
+.athkar-header-title {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) .18s both;
+}
+.athkar-switch {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) .25s both;
+}
+
+.athkar-switch-btn.active {
+  animation: softGlow 2.8s ease-in-out infinite;
+}
+
+/* كروت الأذكار — تتابع */
+.athkar-card {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) both;
+}
+.athkar-card:nth-child(1)  { animation-delay: .03s; }
+.athkar-card:nth-child(2)  { animation-delay: .06s; }
+.athkar-card:nth-child(3)  { animation-delay: .09s; }
+.athkar-card:nth-child(4)  { animation-delay: .12s; }
+.athkar-card:nth-child(5)  { animation-delay: .15s; }
+.athkar-card:nth-child(6)  { animation-delay: .18s; }
+.athkar-card:nth-child(7)  { animation-delay: .21s; }
+.athkar-card:nth-child(8)  { animation-delay: .24s; }
+.athkar-card:nth-child(n+9){ animation-delay: .27s; }
+
+/* =========================================================
+   10. صفحة التفسير
+========================================================= */
+.tafsir-hero {
+  animation: fadeInDown var(--anim-slow) var(--anim-ease) both;
+}
+
+.tafsir-book-picker {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) .1s both;
+}
+
+.tafsir-mode-picker {
+  animation: 
+    fadeInUp var(--anim-slow) var(--anim-ease) .18s both,
+    pulseGlow 2.5s ease-in-out infinite 1s,
+    floatSoft 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+/* لمعة بتعدي على العنصر كل 4 ثواني */
+.tafsir-mode-picker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, .18),
+    transparent
+  );
+  animation: shineSweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shineSweep {
+  0% { left: -100%; }
+  40%, 100% { left: 200%; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 2px 8px rgba(212, 175, 55, .15),
+      0 0 0 0 rgba(212, 175, 55, .4);
+    border-color: var(--gold-ring);
+  }
+  50% {
+    box-shadow:
+      0 6px 20px rgba(212, 175, 55, .4),
+      0 0 0 10px rgba(212, 175, 55, 0);
+    border-color: var(--gold);
+  }
+}
+
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+
+.tafsir-book-btn.active .tb-cover {
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+.tafsir-book-btn.active,
+.tafsir-mode-btn.active {
+  animation: softGlow 3s ease-in-out infinite;
+}
+
+/* شبكة السور — تتابع */
+.tafsir-item {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) both;
+}
+.tafsir-item:nth-child(1)  { animation-delay: .02s; }
+.tafsir-item:nth-child(2)  { animation-delay: .04s; }
+.tafsir-item:nth-child(3)  { animation-delay: .06s; }
+.tafsir-item:nth-child(4)  { animation-delay: .08s; }
+.tafsir-item:nth-child(5)  { animation-delay: .10s; }
+.tafsir-item:nth-child(6)  { animation-delay: .12s; }
+.tafsir-item:nth-child(7)  { animation-delay: .14s; }
+.tafsir-item:nth-child(8)  { animation-delay: .16s; }
+.tafsir-item:nth-child(n+9){ animation-delay: .18s; }
+
+/* صفحة الكتاب */
+.book-wrap {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) both;
+}
+.book-cover {
+  animation: scaleIn var(--anim-slow) var(--anim-ease) both;
+}
+.book-page {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) .12s both;
+}
+
+/* =========================================================
+   11. صفحة القرآن الصوتي
+========================================================= */
+.details {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) both;
+}
+.details-hero {
+  animation: fadeInDown var(--anim-slow) var(--anim-ease) both;
+}
+.details-avatar {
+  animation: gentlePulse 3.5s ease-in-out infinite;
+}
+
+/* كروت القراء — تتابع */
+.reciter {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) both;
+}
+.reciter:nth-child(1)  { animation-delay: .02s; }
+.reciter:nth-child(2)  { animation-delay: .05s; }
+.reciter:nth-child(3)  { animation-delay: .08s; }
+.reciter:nth-child(4)  { animation-delay: .11s; }
+.reciter:nth-child(5)  { animation-delay: .14s; }
+.reciter:nth-child(6)  { animation-delay: .17s; }
+.reciter:nth-child(7)  { animation-delay: .20s; }
+.reciter:nth-child(8)  { animation-delay: .23s; }
+.reciter:nth-child(n+9){ animation-delay: .26s; }
+
+/* السور — تتابع */
+.surah {
+  animation: fadeInUp var(--anim-fast) var(--anim-ease) both;
+}
+.surah:nth-child(1)  { animation-delay: .01s; }
+.surah:nth-child(2)  { animation-delay: .025s; }
+.surah:nth-child(3)  { animation-delay: .04s; }
+.surah:nth-child(4)  { animation-delay: .055s; }
+.surah:nth-child(5)  { animation-delay: .07s; }
+.surah:nth-child(6)  { animation-delay: .085s; }
+.surah:nth-child(7)  { animation-delay: .10s; }
+.surah:nth-child(8)  { animation-delay: .115s; }
+.surah:nth-child(n+9){ animation-delay: .13s; }
+
+/* نص القرآن */
+.quran-text-display {
+  animation: fadeIn var(--anim-slow) var(--anim-ease) both;
+}
+
+/* الآية الشغالة — توهج ذهبي */
+.ayah-span.playing {
+  animation: ayahGlow 2.2s ease-in-out infinite;
+}
+@keyframes ayahGlow {
+  0%, 100% { box-shadow: 0 2px 10px rgba(197,155,39,.5); }
+  50%      { box-shadow: 0 4px 18px rgba(197,155,39,.8); }
+}
+
+/* زر التشغيل المتتابع */
+.continuous-listen-btn {
+  transition: all var(--dur) var(--tr);
+}
+.continuous-listen-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(27,94,32,.4);
+}
+
+/* =========================================================
+   12. صفحة الابتهالات
+========================================================= */
+.ibtihalat-hero {
+  animation: fadeInDown var(--anim-slow) var(--anim-ease) both;
+}
+.ibtihalat-hero-ornament {
+  animation: fadeIn var(--anim-slow) var(--anim-ease) .1s both;
+}
+
+.ibtihalat-sheikh-card {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) both;
+}
+.ibtihalat-sheikh-card:nth-child(1) { animation-delay: .04s; }
+.ibtihalat-sheikh-card:nth-child(2) { animation-delay: .08s; }
+.ibtihalat-sheikh-card:nth-child(3) { animation-delay: .12s; }
+.ibtihalat-sheikh-card:nth-child(4) { animation-delay: .16s; }
+.ibtihalat-sheikh-card:nth-child(5) { animation-delay: .20s; }
+.ibtihalat-sheikh-card:nth-child(n+6){ animation-delay: .24s; }
+
+.ibtihalat-sheikh-avatar {
+  animation: gentlePulse 4s ease-in-out infinite;
+}
+
+.ibtihalat-track {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) both;
+}
+.ibtihalat-track:nth-child(1) { animation-delay: .02s; }
+.ibtihalat-track:nth-child(2) { animation-delay: .04s; }
+.ibtihalat-track:nth-child(3) { animation-delay: .06s; }
+.ibtihalat-track:nth-child(4) { animation-delay: .08s; }
+.ibtihalat-track:nth-child(5) { animation-delay: .10s; }
+.ibtihalat-track:nth-child(n+6){ animation-delay: .12s; }
+
+/* الابتهال الشغال — توهج */
+.ibtihalat-track.playing {
+  animation: softGlow 2.5s ease-in-out infinite;
+}
+
+/* =========================================================
+   13. صفحة التواصل
+========================================================= */
+.contact-hero {
+  animation: fadeInDown var(--anim-slow) var(--anim-ease) both;
+}
+.contact-hero-icon {
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+.contact-info-item {
+  animation: fadeInRight var(--anim-med) var(--anim-ease) both;
+}
+.contact-info-item:nth-child(1) { animation-delay: .05s; }
+.contact-info-item:nth-child(2) { animation-delay: .10s; }
+.contact-info-item:nth-child(3) { animation-delay: .15s; }
+.contact-info-item:nth-child(4) { animation-delay: .20s; }
+.contact-info-item:nth-child(5) { animation-delay: .25s; }
+
+.contact-form-wrapper {
+  animation: fadeInLeft var(--anim-slow) var(--anim-ease) .12s both;
+}
+
+/* رسائل النجاح والخطأ */
+.contact-success.show,
+.contact-error.show {
+  animation: contactFadeIn .45s var(--anim-ease) both;
+}
+
+/* =========================================================
+   14. صفحة البث المباشر (TV)
+========================================================= */
+.tv-shell {
+  animation: fadeInUp var(--anim-slow) var(--anim-ease) both;
+}
+.tv-chip {
+  transition: all var(--dur) var(--tr);
+}
+.tv-chip.active .dot {
+  animation: liveBlink 1.5s ease-in-out infinite;
+}
+.tv-live {
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .72; }
+}
+#NQR-big-play {
+  animation: gentlePulse 2.8s ease-in-out infinite;
+}
+.tv-now {
+  animation: fadeInUp var(--anim-med) var(--anim-ease) .2s both;
+}
+
+/* =========================================================
+   15. مشغل الصوت (Player)
+========================================================= */
+.player.visible {
+  animation: playerSlideUp .5s var(--anim-ease) both;
+}
+@keyframes playerSlideUp {
+  from { transform: translate(-50%, 140%); opacity: 0; }
+  to   { transform: translate(-50%, 0);    opacity: 1; }
+}
+.player-art {
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+.pc-btn.primary {
+  animation: softGlow 2.6s ease-in-out infinite;
+}
+
+/* =========================================================
+   16. زر العودة للأعلى
+========================================================= */
+.back-to-top.show {
+  animation: backTopPop .45s var(--anim-ease) both;
+}
+@keyframes backTopPop {
+  from { opacity: 0; transform: translateY(20px) scale(.85); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* =========================================================
+   17. الفوتر — القلب
+========================================================= */
+.app-footer .heart {
+  animation: heartBeat 1.6s ease-in-out infinite;
+}
+
+/* =========================================================
+   18. Ripple ذهبي ناعم على الأزرار
+========================================================= */
+.btn-ghost,
+.quick-card,
+.tafsir-book-btn,
+.tafsir-mode-btn,
+.athkar-switch-btn,
+.choice-btn,
+.tv-chip,
+.reciter,
+.tafsir-item,
+.ibtihalat-sheikh-card,
+.ibtihalat-track,
+.surah,
+.contact-form-btn,
+.contact-info-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ghost::before,
+.quick-card::before,
+.tafsir-book-btn::before,
+.tafsir-mode-btn::before,
+.athkar-switch-btn::before,
+.choice-btn::before,
+.tv-chip::before,
+.contact-form-btn::before {
+  content: "";
+  position: absolute;
+  top: 50%; right: 50%;
+  width: 0; height: 0;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, .18);
+  transform: translate(50%, -50%);
+  transition: width .5s var(--anim-ease), height .5s var(--anim-ease), opacity .5s var(--anim-ease);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-ghost:active::before,
+.quick-card:active::before,
+.tafsir-book-btn:active::before,
+.tafsir-mode-btn:active::before,
+.athkar-switch-btn:active::before,
+.choice-btn:active::before,
+.tv-chip:active::before,
+.contact-form-btn:active::before {
+  width: 240px; height: 240px;
+  opacity: 1;
+  transition: width 0s, height 0s, opacity 0s;
+}
+
+/* =========================================================
+   19. Scroll Reveal (يشتغل مع JS تحت)
+========================================================= */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity var(--anim-slow) var(--anim-ease),
+              transform var(--anim-slow) var(--anim-ease);
+}
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   20. تحسينات الموبايل
+========================================================= */
+@media (max-width: 760px) {
+  .nav-tab { animation-duration: .45s; }
+
+  /* تقليل اللمعة الثقيلة على العناوين */
+  .app-title {
+    animation: none;
+    -webkit-text-fill-color: var(--gold);
+    background: none;
+  }
+
+  /* تقليل التتابع على الشبكات الكبيرة */
+  .surah:nth-child(n+9),
+  .tafsir-item:nth-child(n+9),
+  .reciter:nth-child(n+9),
+  .athkar-card:nth-child(n+9) {
+    animation-delay: .1s;
+  }
+}
